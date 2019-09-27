@@ -1,0 +1,145 @@
+\documentclass{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+\title{GNU Toolchain}
+\date{2019-09-27}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{float}
+
+\lstset{
+	breaklines=true,
+	frame=single
+}
+
+\begin{document}
+	\maketitle
+	
+	\section{About}
+	
+	The GNU toolchain is a collection of programming tools. A version for RISC-V is available at \url{https://github.com/riscv/riscv-gnu-toolchain}.
+	
+	The objective of this document is to present the relevant tools for compiling and debugging software, and to offer quick guides and examples about using them.
+	
+	\section{Platforms}
+	
+	\subsection{Target Triplet}
+	
+	A target triplet is used to identify systems. It allows build system to know if the code will run.
+	
+	Some examples are :
+	
+	\vspace{-\topsep}
+	\begin{itemize}
+	\item x86\_64-linux-gnu
+	\item x86\_64-unknown-freebsd
+	\item i686-pc-linux-gnu
+	\item arm-linux-gnueabihf
+	\item riscv32-unknown-elf
+	\end{itemize}
+	
+	Target triplets have the following structure: \textbf{machine} - \textbf{vendor} - \textbf{operating system}
+	
+	The \textbf{vendor} field may be left out. In that case, it is assumed to be the default (unknown). As such, x86\_64-unknown-freebsd and x86\_64-freebsd are the same.
+	
+	The \textbf{operating system} field can be composed of two words. For example, x86\_64-linux-gnu is actually:
+	
+	\vspace{-\topsep}
+	\begin{itemize}
+	\item machine: x86\_64
+	\item vendor: unknown (left out)
+	\item os: linux-gnu
+	\end{itemize}
+	
+	
+	\subsection{Build, Host, Target}
+	
+	The \textbf{build platform} is the one on which the compilation tools are executed.
+	
+	The \textbf{host platform} is the one on which the code will eventually run.
+	
+	The \textbf{target platform} of a compiler is the one the compiler generates code for.
+	
+	The GNU tools state the platforms they are configured for. The target triplet can be included in the filename of the binaries:
+	
+	\vspace{-\topsep}
+	\begin{itemize}
+	\item aarch64-linux-gnu-gcc
+	\item riscv32-unknown-elf-gdb
+	\item riscv64-unknown-elf-objdump
+	\end{itemize}
+	
+	You may also find it with the -v option:
+	
+	\begin{lstlisting}[language=bash]
+    $ gcc -v
+    [...]
+    Target: x86_64-linux-gnu
+    Configured with: [...] --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+    [...] 
+    \end{lstlisting}
+    
+    Or the -dumpmachine option:
+    
+    \begin{lstlisting}[language=bash]
+    $ gcc -dumpmachine
+    x86_64-linux-gnu
+    \end{lstlisting}
+    
+    \subsection{RISC-V extensions}
+    
+    The RISC-V instruction set architecture can use extensions. There is the core ISA, standard extensions, and custom extensions.
+    
+    Each extension brings its own instructions. Consequently, the toolchain must be configured with the correct architecture, or you might encounter errors. This is especially true with custom non-standard extensions.
+    
+    You can find the target architecture:
+    
+    \begin{lstlisting}[language=bash]
+    $ riscv32-unknown-elf-gcc -v
+    [...]
+    Target: riscv32-unknown-elf
+    Configured with: [...] --with-arch=rv32i [...]
+    [...] 
+    \end{lstlisting}
+    
+    \section{GCC}
+    
+    option list : https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html
+    
+    for debugging : -Og -g
+    
+    linker
+    
+    \section{GDB}
+    
+    gdb binary
+    target remote host:port
+    load
+    
+    breakpoints
+    continue
+    layout src, asm, (???)
+    list
+    step
+    
+    \section{objdump}
+    
+    -S -D
+    
+    \section{objcopy}
+	
+\end{document}
