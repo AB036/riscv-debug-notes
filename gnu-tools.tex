@@ -35,6 +35,7 @@
 	
 	The objective of this document is to present the relevant tools for compiling and debugging software, and to offer quick guides and examples about using them.
 	
+	\newpage
 	\section{Platforms}
 	
 	\subsection{Target Triplet}
@@ -106,7 +107,7 @@
     
     Each extension brings its own instructions. Consequently, the toolchain must be configured with the correct architecture, or you might encounter errors. This is especially true with custom non-standard extensions.
     
-    You can find the target architecture:
+    You can find information about the target architecture:
     
     \begin{lstlisting}[language=bash]
     $ riscv32-unknown-elf-gcc -v
@@ -116,26 +117,150 @@
     [...] 
     \end{lstlisting}
     
+    \newpage
     \section{GCC}
     
-    option list : https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html
+    GCC is the GNU Compiler Collection. It is a compiler system which supports many languages, including C and C++.
     
-    for debugging : -Og -g
+    \subsection{Basic usage}
     
-    linker
+    If \textit{hello.c} is a C source code file, you can compile it into an executable file \textit{hello.exe} with
     
+    \begin{lstlisting}[language=bash]
+    $ gcc -o hello.exe hello.c
+    \end{lstlisting}
+    
+    \subsection{Options}
+    
+    GCC has \textbf{many} options. A full list is available at \url{https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html}
+    
+	\subsubsection{Debugging}    
+    
+    Regarding debugging, important options are:
+    
+    \vspace{-\topsep}
+	\begin{itemize}
+	\item \textbf{-g} : produce debugging information that GDB can use
+	\item \textbf{-Og} : optimization level of choice for debugging
+	\end{itemize}
+	
+	
+    \subsubsection{Linker}
+    
+    To produce executable files, GCC includes a linker. You may need to provide your own linker script for some target platforms, such as bare-board targets without an operating system.
+    
+    \vspace{-\topsep}
+	\begin{itemize}
+	\item \textbf{-T script} : use \textit{script} as the linker script
+	\end{itemize}
+    
+    \newpage
     \section{GDB}
     
-    gdb binary
-    target remote host:port
-    load
+    GDB is the GNU debugger. It is useful to:
     
-    breakpoints
-    continue
-    layout src, asm, (???)
-    list
-    step
+    \vspace{-\topsep}
+	\begin{itemize}
+	\item load a program to a remote system
+	\item read the target's registers
+	\item step through a program
+	\item debug a program
+	\end{itemize}
+	
+	A full guide of GDB is available at \url{https://sourceware.org/gdb/download/onlinedocs/gdb/index.html}
+	
+	\subsection{Using GDB for a remote RISC-V target}
+	
+	This section presents a way of debugging a program for a bare-metal application running on a RISC-V target. Assuming you have a \textit{hello.c} file and compiled it into a \textit{hello.exe} executable file:
+	
+	\vspace{-\topsep}
+	\begin{itemize}
+	\item launch gdb with the program
+	
+	\begin{lstlisting}[language=bash]
+    $ riscv32-unknown-elf-gdb hello.exe
+    \end{lstlisting}
     
+    \item Connect to a GDB translator such as OpenOCD
+    
+    \begin{lstlisting}[language=bash]
+    (gdb) target remote [host]:[port]
+    \end{lstlisting}
+    
+    \item load the program
+    
+    \begin{lstlisting}[language=bash]
+    (gdb) load
+    \end{lstlisting}
+	\end{itemize}
+	
+	\subsection{Breakpoints, Continuing, Stepping}
+    
+    Setting a breakpoint:
+    \begin{lstlisting}[language=bash]
+    (gdb) b location
+    \end{lstlisting}
+    
+    \textit{location} can be a function name, a line number, or an address of an instruction
+    
+    \begin{lstlisting}[language=bash]
+    (gdb) b main
+    (gdb) b 20
+    (gdb) b *0x12345678
+    \end{lstlisting}
+    
+    Resume program execution, i.e. continuing:
+    \begin{lstlisting}[language=bash]
+    (gdb) c
+    \end{lstlisting}
+    
+    Step through a single source line:
+    \begin{lstlisting}[language=bash]
+    (gdb) s
+    \end{lstlisting}
+    
+    Step through a single instruction:
+    \begin{lstlisting}[language=bash]
+    (gdb) si
+    \end{lstlisting}
+    
+    \subsection{Layouts}
+    
+    Layouts transform the GDB interface and provide more information about the program.
+    
+    \begin{lstlisting}[language=bash]
+    (gdb) layout layout_name
+    \end{lstlisting}
+    
+    Layout names are:
+    
+    \vspace{-\topsep}
+	\begin{itemize}
+	\item src : displays source
+	\item asm : displays disassembly
+	\item split : displays source and disassembly
+	\item regs : displays registers
+	\end{itemize}
+	
+	\subsection{Other}
+	
+	Show all current breakpoints:
+	
+	\begin{lstlisting}[language=bash]
+    (gdb) info breakpoints
+    \end{lstlisting}
+    
+    Show all registers and their contents:
+    \begin{lstlisting}[language=bash]
+    (gdb) info all-registers
+    \end{lstlisting}
+    
+    Show an expression's value:
+    \begin{lstlisting}[language=bash]
+    (gdb) print expression
+    \end{lstlisting}
+    
+    \newpage
     \section{objdump}
     
     -S -D
