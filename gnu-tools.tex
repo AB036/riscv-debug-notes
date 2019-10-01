@@ -157,7 +157,7 @@
     \newpage
     \section{GDB}
     
-    GDB is the GNU debugger. It is useful to:
+    GDB is the GNU debugger. It can be used to:
     
     \vspace{-\topsep}
 	\begin{itemize}
@@ -245,7 +245,6 @@
 	\subsection{Other}
 	
 	Show all current breakpoints:
-	
 	\begin{lstlisting}[language=bash]
     (gdb) info breakpoints
     \end{lstlisting}
@@ -258,6 +257,11 @@
     Show an expression's value:
     \begin{lstlisting}[language=bash]
     (gdb) print expression
+    \end{lstlisting}
+    
+    Jump to a \textit{location}:
+    \begin{lstlisting}[language=bash]
+    (gdb) j location
     \end{lstlisting}
     
     \newpage
