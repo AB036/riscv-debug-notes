@@ -267,8 +267,23 @@
     \newpage
     \section{objdump}
     
-    -S -D
+    objdump is a program that can be used to disassemble an executable file.
     
-    \section{objcopy}
+    The program has many options that you can check here: \url{https://sourceware.org/binutils/docs/binutils/objdump.html}
+    
+    \subsection{Example}
+    
+    The following example uses the options \textbf{-D} (disassemble the contents of all sections) and \textbf{-S} (display source code intermixed with disassembly).
+    
+    \begin{lstlisting}[language=bash]
+    $ riscv32-unknown-elf-objdump -D -S hello.exe
+    \end{lstlisting}
+    
+    This command prints the assembly to stdout. You can pipe it to save it in a file.
+    
+    \begin{lstlisting}[language=bash]
+    $ riscv32-unknown-elf-objdump -D -S hello.exe > hello.D
+    \end{lstlisting}
+    
 	
 \end{document}
