@@ -100,7 +100,7 @@
     ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6014", MODE="660", GROUP="plugdev", TAG+="uaccess"
     \end{lstlisting}
     
-    The either reboot your system or reload the udev configuration with :
+    Then either reboot your system or reload the udev configuration with :
     
     \begin{lstlisting}[language=bash]
     $ sudo udevadm control --reload
@@ -126,7 +126,7 @@
     \newpage
     \section{OpenOCD Config File}
     
-    Examples of config files using the HS2 cable are:
+    Examples of config files using the HS2 cable can be found on the Internet:
     
     \vspace{-\topsep}
 	\begin{itemize}
@@ -172,6 +172,22 @@ reset_config none
 	
 	\section{Vivado Hardware Manager}
 	
+	The Digilent JTAG-HS2 cable is supported by the Xilinx Hardware Server. For some reason, it is impossible to use the cable with OpenOCD while the Hardware Server is active.
 	
+	This makes using Vivado and OpenOCD at the same time a problem.
+	
+	A possible fix is the following protocol:
+	
+	\vspace{-\topsep}
+	\begin{itemize}
+	\item Open the hardware server in Vivado and connect to your FPGA board
+	\item Upload the bitstream and program the device
+	\item \textbf{Close} the hardware server
+	\item Launch OpenOCD
+	\end{itemize}
+	
+	Of course, This closes the hardware server and removes access to Vivado features.
+	
+	To properly fix the issue, you would need to find a way of preventing the Vivado Hardware Server from occupying the USB device of the cable.
 	
 \end{document}
