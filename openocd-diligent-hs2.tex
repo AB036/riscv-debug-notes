@@ -23,6 +23,9 @@
 
 \lstset{
 	breaklines=true,
+	columns=fullflexible,
+	tabsize=4,
+	showstringspaces=false,
 	frame=single
 }
 
@@ -76,7 +79,7 @@
     $ ./configure --enable-ftdi <other options>
     \end{lstlisting}
     
-    If you are not sure if your existing instance of OpenOCD supports the ftdi interface, you can list the debug adapter drivers that have been built into the running copy of OpenOCD with:
+    To check if your existing instance of OpenOCD supports the ftdi interface, you can list the supported debug adapter drivers:
     
     \begin{lstlisting}[language=bash]
     $ openocd -c interface_list
