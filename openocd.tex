@@ -46,7 +46,7 @@
 	\includegraphics[width=0.6\textwidth]{openocd.png}
 	\end{figure}
 	
-	A fork with RISC-V support is available on \url{https://github.com/riscv/riscv-openocd}
+	A fork with RISC-V support is available on \url{https://github.com/riscv/riscv-openocd}. It supports versions 0.11 and 0.13 of the official RISC-V external debug specification.
 	
 	OpenOCD is free software and is licensed under the \textbf{GNU General Public License v2.0}
 	
@@ -67,14 +67,14 @@
 	
 	OpenOCD can connect to GDB in two ways: with a TCP/IP socket or with pipes (stdin/stdout). 
 	
-	More information here: \url{http://openocd.org/doc-release/html/GDB-and-OpenOCD.html}
+	More information here: \url{http://openocd.org/doc/html/GDB-and-OpenOCD.html}
 	
 	A debug adapter is needed to connect OpenOCD to the RISC-V platform. This document focuses on using JTAG transport hardware.
 	
 	\newpage
 	\section{Config file}
 	
-	\url{http://openocd.org/doc-release/html/OpenOCD-Project-Setup.html}
+	\url{http://openocd.org/doc/html/OpenOCD-Project-Setup.html}
 	
 	A typical usage of OpenOCD is:
 	
@@ -104,7 +104,7 @@
     
     \subsection{Interface}
     
-    \url{http://openocd.org/doc-release/html/Debug-Adapter-Configuration.html}
+    \url{http://openocd.org/doc/html/Debug-Adapter-Configuration.html}
     
     The interface configuration tells OpenOCD how to use the transport hardware. 
     
@@ -114,7 +114,7 @@
     
     \subsection{TAP declaration}
     
-    \url{http://openocd.org/doc-release/html/TAP-Declaration.html}
+    \url{http://openocd.org/doc/html/TAP-Declaration.html}
     
     A device with a JTAG interface means the device has a Test Access Port (TAP). You need to set up the active TAPs of the device by declaring them inside a configuration file.
     
@@ -131,7 +131,7 @@
     
     \subsection{CPU configuration}
     
-    \url{http://openocd.org/doc-release/html/CPU-Configuration.htm}
+    \url{http://openocd.org/doc/html/CPU-Configuration.html}
     
     This step gives information about the debug target.
     
@@ -146,7 +146,7 @@
     
     \url{http://openocd.org/doc/html/Server-Configuration.html}
     
-    \url{http://openocd.org/doc-release/html/General-Commands.html}
+    \url{http://openocd.org/doc/html/General-Commands.html}
     
     An end of the config file could be:
     
@@ -197,6 +197,12 @@
     \begin{lstlisting}[language=tcl]
     bindto 0.0.0.0
     \end{lstlisting}
+    
+    \subsection{RISC-V commands}
+    
+    Commands specific to the RISC-V architecture can be found in this section of the documentation: 
+    
+    \url{http://openocd.org/doc/html/Architecture-and-Core-Commands.html#RISC_002dV-Architecture}
     
     \newpage
     \section{Config file examples}
