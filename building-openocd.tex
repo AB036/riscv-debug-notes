@@ -22,6 +22,7 @@
 \usepackage{amssymb}
 
 \lstset{
+	basicstyle=\ttfamily,
 	breaklines=true,
 	columns=fullflexible,
 	tabsize=4,
@@ -38,7 +39,7 @@
     
     A fork with RISC-V support has been developped and is available on GitHub at \url{https://github.com/riscv/riscv-openocd}
     
-    This guide aims to provide help about building OpenOCD for various plateforms. More details, guides and manuals about OpenOCD can be found in the repository's README.md
+    This guide aims at providing help about building OpenOCD for various plateforms. More details, guides and manuals about OpenOCD can be found in the repository's README.md
     
     \section{Dependencies}
     
@@ -227,7 +228,7 @@
     $ ./configure --help
     \end{lstlisting}
     
-    \item In particular, \textit{--enable-sysfsgpio} and \textit{--enable-remote-bitbang} must be added to use the corresponding features.
+    \item In particular, \textit{--enable-sysfsgpio}, \textit{--enable-ftdi} and \textit{--enable-remote-bitbang} must be added to use the corresponding features.
     
     \item The \textit{--host=} option must be provided to cross-compile
     
